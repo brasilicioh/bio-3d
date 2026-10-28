@@ -1,16 +1,24 @@
-# React + Vite
+# Bio 3D
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação React para visualização de modelos 3D de biologia.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Instale as dependências e inicie o servidor local:
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Build e deploy
 
-## Expanding the ESLint configuration
+Para gerar o build em `dist` e publicá-lo na branch `gh-pages`:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run deploy
+```
+
+O comando executa `npm run build` automaticamente antes de publicar. No GitHub,
+configure **Settings > Pages > Build and deployment** para usar a branch
+`gh-pages` e a pasta `/ (root)`.
