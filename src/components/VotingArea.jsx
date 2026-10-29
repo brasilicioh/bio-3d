@@ -21,7 +21,9 @@ function carregarVotos() {
 
 function tocarSom(tipo) {
   if (tipo === "confirmar") {
-    const somUrna = new Audio("public/sounds/urna_confirma.mp3");
+    const somUrna = new Audio(
+      `${import.meta.env.BASE_URL}sounds/urna_confirma.mp3`,
+    );
     somUrna.volume = 0.45;
     somUrna.play().catch(() => tocarSomSintetico(tipo));
     return;
