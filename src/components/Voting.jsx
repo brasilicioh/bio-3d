@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { candidatos } from "./modelos";
 import VotingCandidate from "./VotingCandidate";
+import VotingArea from "./VotingArea";
 
 export function FotoCandidato({ candidato }) {
   return (
@@ -19,6 +20,7 @@ export function FotoCandidato({ candidato }) {
 
 export default function Voting({ onVoltar }) {
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null);
+  const [urnaOpened, setUrnaOpened] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#070b14] text-slate-100">
@@ -104,6 +106,18 @@ export default function Voting({ onVoltar }) {
             />
           )}
         </section>
+
+        <div className="flex justify-center pb-10">
+          <button
+            type="button"
+            onClick={() => setUrnaOpened(true)}
+            className="rounded-xl border border-violet-300/30 bg-violet-400/10 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-violet-200 transition hover:border-violet-200/60 hover:bg-violet-400/20"
+          >
+            Ative a urna
+          </button>
+        </div>
+
+        {urnaOpened && <VotingArea onVoltar={() => setUrnaOpened(false)} />}
 
         <footer className="border-t border-white/10 py-6 text-center">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-violet-300">
