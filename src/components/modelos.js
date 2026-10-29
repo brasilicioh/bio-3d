@@ -4,24 +4,25 @@ import sickleCellModel from "@models/sickle_cell.glb?url";
 
 export const opcoes = [
   {
-    id: "oxygen-transport",
-    numero: "01",
-    titulo: "Transporte de oxigênio e CO₂",
-    descricao: "Acompanhe a hemácia entregando oxigênio e recolhendo dióxido de carbono.",
-    categoria: "FISIOLOGIA",
-    cor: "from-cyan-500/20",
-    tipo: "transporte",
-  },
-  {
     id: "red-blood-cells",
-    numero: "02",
+    numero: "01",
     titulo: "Hemácias",
     descricao: "Explore a estrutura e a forma dos glóbulos vermelhos.",
     categoria: "CITOLOGIA",
-    cor: "from-cyan-500/20",
+    cor: "from-cyan-700/10",
     modelUrl: redBloodCellsModel,
     //                   camera,       ambientLight, directionalLight, intensity
     props3d: [{ position: [0, 0, 5], fov: 30 }, 0.2, [3, 5, 5], 3],
+  },
+  {
+    id: "oxygen-transport",
+    numero: "02",
+    titulo: "Transporte de oxigênio e CO₂",
+    descricao:
+      "Acompanhe a hemácia entregando oxigênio e recolhendo dióxido de carbono.",
+    categoria: "FISIOLOGIA",
+    cor: "from-cyan-500/20",
+    tipo: "transporte",
   },
   {
     id: "blood-vessel",
@@ -48,19 +49,20 @@ export const opcoes = [
   {
     id: "blood-clotting",
     numero: "05",
-    titulo: "Coagulação do sangue",
-    descricao: "Uma nova experiência interativa sobre a formação do coágulo.",
-    categoria: "FISIOLOGIA",
-    cor: "from-amber-500/20",
-    tipo: "placeholder",
+    titulo: "Quadro de Punnett",
+    descricao: "Note como a genética influencia a coagulação sanguínea.",
+    categoria: "GENÉTICA",
+    cor: "from-purple-400/30",
+    tipo: "genetic-table",
   },
   {
     id: "immune-response",
     numero: "06",
-    titulo: "Resposta imune",
-    descricao: "Uma nova experiência sobre a defesa do organismo.",
-    categoria: "FISIOLOGIA",
-    cor: "from-violet-500/20",
-    tipo: "placeholder",
+    titulo: "Votação das Hemácias",
+    descricao:
+      "A partir da democracia, escolha a hemácia que deseja no seu corpo.",
+    categoria: "CITOLOGIA DEMOCRÁTICA",
+    cor: "from-violet-600/20",
+    tipo: "voting",
   },
 ];
