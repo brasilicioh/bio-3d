@@ -1,32 +1,4 @@
-const opcoes = [
-  {
-    id: "hemacia",
-    numero: "01",
-    titulo: "Hemácia normal",
-    descricao:
-      "Explore a estrutura e a forma de uma célula vermelha do sangue.",
-    categoria: "CITOLOGIA",
-    cor: "from-rose-500/20",
-  },
-  {
-    id: "falciforme",
-    numero: "02",
-    titulo: "Anemia falciforme",
-    descricao:
-      "Entenda como uma alteração na hemoglobina modifica a forma da hemácia.",
-    categoria: "GENÉTICA",
-    cor: "from-orange-500/20",
-  },
-  {
-    id: "genetico",
-    numero: "03",
-    titulo: "Código genético",
-    descricao:
-      "Descubra como a informação genética orienta a produção de proteínas.",
-    categoria: "BIOLOGIA MOLECULAR",
-    cor: "from-cyan-500/20",
-  },
-];
+import { opcoes } from "./modelos";
 
 export default function Menu({ onSelecionar }) {
   return (
@@ -43,7 +15,7 @@ export default function Menu({ onSelecionar }) {
               B.
             </span>
             <span className="text-sm font-semibold tracking-wide">
-              BIO<span className="text-slate-500">/LAB</span>
+              BIO<span className="text-slate-500">MAKET</span>
             </span>
           </a>
 
@@ -52,9 +24,9 @@ export default function Menu({ onSelecionar }) {
           </span>
         </header>
 
-        <section className="py-20 sm:py-28">
+        <section className="py-12 sm:py-20">
           <p className="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-rose-300">
-            Ciência em outra perspectiva
+            Biologia em outra perspectiva
           </p>
 
           <h1 className="max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
@@ -71,7 +43,7 @@ export default function Menu({ onSelecionar }) {
             </p>
 
             <span className="text-xs tracking-widest text-slate-500">
-              03 EXPERIÊNCIAS
+              0{opcoes.length} EXPERIÊNCIAS
             </span>
           </div>
         </section>
@@ -81,7 +53,7 @@ export default function Menu({ onSelecionar }) {
             <button
               key={opcao.id}
               type="button"
-              onClick={() => onSelecionar(opcao.titulo)}
+              onClick={() => onSelecionar(opcao)}
               className={`group relative min-h-64 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br ${opcao.cor} to-[#0c1220] p-6 text-left transition duration-300 hover:-translate-y-1 hover:border-rose-300/40 hover:shadow-2xl hover:shadow-rose-950/20 focus-visible:outline-2 focus-visible:outline-rose-300`}
             >
               <div className="flex items-start justify-between">
@@ -113,8 +85,7 @@ export default function Menu({ onSelecionar }) {
           ))}
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-slate-500 sm:flex-row sm:justify-between">
-          <span> BIO/LAB — Explorando a vida em 3D</span>
+        <footer className="flex flex-col gap-2 justify-center border-t border-white/10 py-6 text-xs text-slate-500 sm:flex-row">
           <span>CIÊNCIA · VISUALIZAÇÃO · DESCOBERTA</span>
         </footer>
       </div>

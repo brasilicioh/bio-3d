@@ -1,6 +1,6 @@
 import Modelo3D from "./Modelo3D";
 
-export default function Visualizacao3D({ titulo, onVoltar }) {
+export default function Visualizacao3D({ titulo, modelObject, onVoltar }) {
   return (
     <main className="min-h-screen bg-[#070b14] text-slate-100">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col px-5 sm:px-10 lg:px-14">
@@ -54,7 +54,9 @@ export default function Visualizacao3D({ titulo, onVoltar }) {
               </div>
 
               <div className="absolute inset-0">
-                <Modelo3D />
+                <Modelo3D
+                  modelObject={modelObject}
+                />
               </div>
             </div>
           </div>

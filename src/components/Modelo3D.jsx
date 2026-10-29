@@ -1,7 +1,6 @@
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import modelUrl from "@models/red_blood_cells_erythrocytes.glb?url";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
@@ -23,15 +22,14 @@ function Modelo({ modelUrl }) {
   );
 }
 
-export default function Modelo3D() {
+export default function Modelo3D({ modelObject }) {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-      <ambientLight intensity={1.5} />
-      <directionalLight position={[3, 5, 5]} intensity={2} />
+    <Canvas camera={modelObject.props3d[0]} shadows>
+      <ambientLight intensity={modelObject.props3d[1]} />
+      <directionalLight position={modelObject.props3d[2]} intensity={modelObject.props3d[3]} />
 
       <Suspense fallback={null}>
-        {/* TODO: change 3d */}
-        <Modelo modelUrl={modelUrl} />
+        <Modelo modelUrl={modelObject.modelUrl} />
       </Suspense>
 
       <OrbitControls enableDamping />
