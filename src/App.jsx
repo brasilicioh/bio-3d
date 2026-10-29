@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Menu from "./components/Menu";
 import { opcoes } from "./components/modelos";
 import Visualizacao3D from "./components/Visualizacao3D";
+import TransporteGases from "./components/TransporteGases";
+import Placeholder from "./components/Placeholder";
 
 export default function App() {
   const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
@@ -43,6 +45,19 @@ export default function App() {
   };
 
   if (opcaoSelecionada) {
+    if (opcaoSelecionada.tipo === "transporte") {
+      return <TransporteGases onVoltar={voltarAoMenu} />;
+    }
+
+    if (opcaoSelecionada.tipo === "placeholder") {
+      return (
+        <Placeholder
+          titulo={opcaoSelecionada.titulo}
+          onVoltar={voltarAoMenu}
+        />
+      );
+    }
+
     return (
       <Visualizacao3D
         titulo={opcaoSelecionada.titulo}

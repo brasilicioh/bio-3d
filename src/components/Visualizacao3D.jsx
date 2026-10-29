@@ -15,7 +15,7 @@ export default function Visualizacao3D({ titulo, modelObject, onVoltar }) {
           </button>
 
           <span className="text-xs font-medium tracking-[0.2em] text-slate-500">
-            BIO/LAB
+            BIOMAKET
           </span>
         </header>
 
@@ -95,7 +95,7 @@ export default function Visualizacao3D({ titulo, modelObject, onVoltar }) {
         </section>
 
         <footer className="border-t border-white/10 py-5 text-xs text-slate-600">
-          BIO/LAB · VISUALIZAÇÃO INTERATIVA
+          BIOMAKET · VISUALIZAÇÃO INTERATIVA
         </footer>
       </div>
     </main>

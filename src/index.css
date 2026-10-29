@@ -40,3 +40,83 @@ a:focus-visible {
   color: white;
   background: #be123c;
 }
+
+@keyframes transport-cell {
+  0%,
+  6% {
+    left: 0%;
+  }
+  44%,
+  56% {
+    left: calc(100% - 4rem);
+  }
+  94%,
+  100% {
+    left: 0%;
+  }
+}
+
+@keyframes transport-oxygen {
+  0%,
+  8% {
+    left: 3%;
+    opacity: 0;
+  }
+  15%,
+  42% {
+    left: 15%;
+    opacity: 1;
+  }
+  52%,
+  100% {
+    left: 84%;
+    opacity: 0;
+  }
+}
+
+@keyframes transport-carbon {
+  0%,
+  48% {
+    left: 84%;
+    opacity: 0;
+  }
+  58%,
+  78% {
+    left: 58%;
+    opacity: 1;
+  }
+  94%,
+  100% {
+    left: 4%;
+    opacity: 0;
+  }
+}
+
+.red-cell,
+.oxygen-particle,
+.carbon-particle {
+  animation-delay: 1s;
+  animation-duration: 16s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.red-cell {
+  animation-name: transport-cell;
+}
+
+.oxygen-particle {
+  animation-name: transport-oxygen;
+}
+
+.carbon-particle {
+  animation-name: transport-carbon;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .red-cell,
+  .oxygen-particle,
+  .carbon-particle {
+    animation-play-state: paused;
+  }
+}
