@@ -137,6 +137,20 @@ a:focus-visible {
   .red-cell,
   .oxygen-particle,
   .carbon-particle {
-    animation-play-state: paused;
+    animation: none;
+    opacity: 1;
+  }
+
+  .red-cell {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .oxygen-particle {
+    left: 24%;
+  }
+
+  .carbon-particle {
+    left: 72%;
   }
 }

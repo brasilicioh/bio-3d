@@ -1,19 +1,31 @@
 import { useState } from "react";
-import { candidatos } from "./modelos";
+import { candidatos } from "../data/candidatos";
 import VotingCandidate from "./VotingCandidate";
 import VotingArea from "./VotingArea";
 
-export function FotoCandidato({ candidato }) {
+export function FotoCandidato({ candidato, className = "" }) {
+  const [imagemFalhou, setImagemFalhou] = useState(false);
+
   return (
-    <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10 bg-[#151d2d]">
-      <img
-        src={candidato.foto}
-        alt={`Foto de ${candidato.nome}`}
-        className="h-full w-full object-cover"
-        onError={(event) => {
-          event.currentTarget.style.display = "none";
-        }}
-      />
+    <div
+      className={`relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10 bg-[#151d2d] ${className}`}
+    >
+      {imagemFalhou ? (
+        <div
+          role="img"
+          aria-label={`Imagem indisponível de ${candidato.nome}`}
+          className="flex h-full items-center justify-center p-4 text-center text-xs text-slate-400"
+        >
+          Imagem indisponível
+        </div>
+      ) : (
+        <img
+          src={candidato.foto}
+          alt={`Foto de ${candidato.nome}`}
+          className="h-full w-full object-cover"
+          onError={() => setImagemFalhou(true)}
+        />
+      )}
     </div>
   );
 }
@@ -61,19 +73,12 @@ export default function Voting({ onVoltar }) {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {candidatos.map((candidato) => (
-              <article
+              <button
                 key={candidato.id}
-                role="button"
-                tabIndex={0}
+                type="button"
                 onClick={() => setCandidatoSelecionado(candidato)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    setCandidatoSelecionado(candidato);
-                  }
-                }}
                 aria-label={`Ver informações de ${candidato.nome}`}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-violet-500/10 to-[#0c1220] p-4 cursor-pointer transition duration-300 hover:-translate-y-1 hover:border-violet-300/40 hover:shadow-2xl hover:shadow-violet-950/20"
+                className="group overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-violet-500/10 to-[#0c1220] p-4 text-left cursor-pointer transition duration-300 hover:-translate-y-1 hover:border-violet-300/40 hover:shadow-2xl hover:shadow-violet-950/20"
               >
                 <FotoCandidato candidato={candidato} />
 
@@ -95,7 +100,7 @@ export default function Voting({ onVoltar }) {
                     “{candidato.slogan}”
                   </p>
                 </div>
-              </article>
+              </button>
             ))}
           </div>
 

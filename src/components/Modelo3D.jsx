@@ -26,7 +26,10 @@ export default function Modelo3D({ modelObject }) {
   return (
     <Canvas camera={modelObject.props3d[0]} shadows>
       <ambientLight intensity={modelObject.props3d[1]} />
-      <directionalLight position={modelObject.props3d[2]} intensity={modelObject.props3d[3]} />
+      <directionalLight
+        position={modelObject.props3d[2]}
+        intensity={modelObject.props3d[3]}
+      />
 
       <Suspense fallback={null}>
         <Modelo modelUrl={modelObject.modelUrl} />

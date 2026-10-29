@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 
 const etapas = [
   {
-    titulo: "Artéria vazia",
-    texto: "O ciclo está prestes a começar.",
+    titulo: "Representação estática",
+    texto:
+      "Com movimento reduzido, o fluxo é apresentado de forma estática para facilitar a leitura.",
   },
   {
     titulo: "Nos pulmões",
@@ -25,28 +26,30 @@ export default function TransporteGases({ onVoltar }) {
   const [etapaAtual, setEtapaAtual] = useState(0);
 
   useEffect(() => {
-    const timeouts = [];
-    let ciclo;
+    let timeoutId;
+    let desmontado = false;
+    const fases = [
+      [2400, 1],
+      [8000, 2],
+      [850, 3],
+      [5750, 0],
+    ];
+    let faseAtual = 0;
 
-    const agendarCiclo = () => {
-      timeouts.push(
-        window.setTimeout(() => {
-          setEtapaAtual(1);
-          timeouts.push(
-            window.setTimeout(() => setEtapaAtual(2), 2000),
-            window.setTimeout(() => setEtapaAtual(3), 8000),
-            window.setTimeout(() => setEtapaAtual(0), 15000),
-          );
-        }, 1000),
-      );
-      ciclo = window.setTimeout(agendarCiclo, 17000);
+    const agendarFase = () => {
+      const [duracao, proximaEtapa] = fases[faseAtual];
+      timeoutId = window.setTimeout(() => {
+        if (desmontado) return;
+        setEtapaAtual(proximaEtapa);
+        faseAtual = (faseAtual + 1) % fases.length;
+        agendarFase();
+      }, duracao);
     };
 
-    agendarCiclo();
-
+    agendarFase();
     return () => {
-      timeouts.forEach((timeout) => window.clearTimeout(timeout));
-      window.clearTimeout(ciclo);
+      desmontado = true;
+      window.clearTimeout(timeoutId);
     };
   }, []);
 

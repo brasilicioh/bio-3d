@@ -54,9 +54,7 @@ export default function Visualizacao3D({ titulo, modelObject, onVoltar }) {
               </div>
 
               <div className="absolute inset-0">
-                <Modelo3D
-                  modelObject={modelObject}
-                />
+                <Modelo3D modelObject={modelObject} />
               </div>
             </div>
           </div>

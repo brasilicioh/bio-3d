@@ -1,22 +1,49 @@
-import { useEffect, useMemo, useState } from "react";
-import { candidatos } from "./modelos";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { candidatos } from "../data/candidatos";
 
 function carregarVotos() {
-  const salvo = localStorage.getItem("votosBioLab");
-  const armazenado = salvo ? JSON.parse(salvo) : {};
+  let armazenado = {};
+  let salvo = null;
+  try {
+    salvo = localStorage.getItem("votosBioLab");
+    const valor = salvo ? JSON.parse(salvo) : {};
+    if (valor && typeof valor === "object" && !Array.isArray(valor)) {
+      armazenado = valor;
+    }
+  } catch {
+    armazenado = {};
+  }
+
   const votosIniciais = candidatos.reduce(
     (contagem, candidato) => ({
       ...contagem,
-      [candidato.id]: Number(armazenado[candidato.id] || 0),
+      [candidato.id]:
+        Number.isInteger(Number(armazenado[candidato.id])) &&
+        Number(armazenado[candidato.id]) >= 0
+          ? Number(armazenado[candidato.id])
+          : 0,
     }),
     {},
   );
 
   if (!salvo) {
-    localStorage.setItem("votosBioLab", JSON.stringify(votosIniciais));
+    try {
+      localStorage.setItem("votosBioLab", JSON.stringify(votosIniciais));
+    } catch {
+      // A votação continua funcionando em memória quando o armazenamento não está disponível.
+    }
   }
 
   return votosIniciais;
+}
+
+function salvarVotos(votos) {
+  try {
+    localStorage.setItem("votosBioLab", JSON.stringify(votos));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function tocarSom(tipo) {
@@ -69,61 +96,90 @@ export default function VotingArea({ onVoltar }) {
   const [branco, setBranco] = useState(false);
   const [confirmado, setConfirmado] = useState(false);
   const [votos, setVotos] = useState(carregarVotos);
+  const [avisoArmazenamento, setAvisoArmazenamento] = useState("");
+  const estadoRef = useRef({ numero, branco, confirmado, votos });
+  useEffect(() => {
+    estadoRef.current = { numero, branco, confirmado, votos };
+  }, [branco, confirmado, numero, votos]);
 
   const candidato = useMemo(
     () => candidatos.find((item) => item.numero === numero),
     [numero],
   );
 
-  const adicionarNumero = (digito) => {
-    if (confirmado || branco || numero.length >= 2) return;
+  const adicionarNumero = useCallback((digito) => {
+    const estado = estadoRef.current;
+    if (estado.confirmado || estado.branco || estado.numero.length >= 2) return;
     tocarSom("tecla");
     setNumero((valor) => valor + digito);
-  };
+  }, []);
 
-  const corrigir = () => {
-    if (confirmado) return;
+  const corrigir = useCallback(() => {
+    if (estadoRef.current.confirmado) return;
     tocarSom("tecla");
     setNumero("");
     setBranco(false);
-  };
+  }, []);
 
-  const votarEmBranco = () => {
-    if (confirmado) return;
+  const votarEmBranco = useCallback(() => {
+    if (estadoRef.current.confirmado) return;
     tocarSom("tecla");
     setNumero("");
     setBranco(true);
-  };
+  }, []);
 
-  const confirmar = () => {
-    if (confirmado || (!candidato && !branco)) {
+  const confirmar = useCallback(() => {
+    const estado = estadoRef.current;
+    const candidatoAtual = candidatos.find(
+      (item) => item.numero === estado.numero,
+    );
+    if (estado.confirmado || (!candidatoAtual && !estado.branco)) {
       tocarSom("erro");
       return;
     }
 
     tocarSom("confirmar");
-    if (candidato) {
+    if (candidatoAtual) {
       const novaContagem = {
-        ...votos,
-        [candidato.id]: votos[candidato.id] + 1,
+        ...estado.votos,
+        [candidatoAtual.id]: estado.votos[candidatoAtual.id] + 1,
       };
       setVotos(novaContagem);
-      localStorage.setItem("votosBioLab", JSON.stringify(novaContagem));
+      if (!salvarVotos(novaContagem)) {
+        setAvisoArmazenamento(
+          "O voto foi registrado apenas nesta sessão porque o armazenamento local não está disponível.",
+        );
+      }
     }
     setConfirmado(true);
-  };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") onVoltar();
-      if (/^[0-9]$/.test(event.key)) adicionarNumero(event.key);
-      if (event.key === "Enter") confirmar();
-      if (event.key === "Backspace") corrigir();
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onVoltar();
+        return;
+      }
+      if (/^[0-9]$/.test(event.key)) {
+        event.preventDefault();
+        adicionarNumero(event.key);
+        return;
+      }
+      if (event.key === "Enter") {
+        event.preventDefault();
+        confirmar();
+        return;
+      }
+      if (event.key === "Backspace") {
+        event.preventDefault();
+        corrigir();
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  });
+  }, [adicionarNumero, confirmar, corrigir, onVoltar]);
 
   return (
     <div
@@ -158,6 +214,11 @@ export default function VotingArea({ onVoltar }) {
         </div>
 
         <div className="grid gap-6 p-4 sm:p-8 lg:grid-cols-[1fr_280px]">
+          {avisoArmazenamento && (
+            <p className="lg:col-span-2 rounded border border-amber-700 bg-amber-100 px-3 py-2 text-sm text-amber-950">
+              {avisoArmazenamento}
+            </p>
+          )}
           <div className="flex min-h-[360px] flex-col border-2 border-slate-700 bg-[#ecece8] p-4 text-slate-900 shadow-inner sm:p-6">
             {confirmado ? (
               <div className="flex flex-1 flex-col items-center justify-center text-center">

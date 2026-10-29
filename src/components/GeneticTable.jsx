@@ -41,7 +41,7 @@ export default function GeneticTable({ onVoltar }) {
     const combinacoes = alelosMae.flatMap((aleloMae) =>
       alelosPai.map((aleloPai) => formarGenotipo(aleloPai, aleloMae)),
     );
-    const quantidadeAa = combinacoes.filter(
+    const quantidadeRecessiva = combinacoes.filter(
       (genotipo) => genotipo === "aa",
     ).length;
 
@@ -49,7 +49,7 @@ export default function GeneticTable({ onVoltar }) {
       alelosPai,
       alelosMae,
       combinacoes,
-      probabilidadeRecessiva: (quantidadeAa / combinacoes.length) * 100,
+      probabilidadeRecessiva: (quantidadeRecessiva / combinacoes.length) * 100,
     };
   }, [genotipoPai, genotipoMae]);
 

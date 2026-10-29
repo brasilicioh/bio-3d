@@ -1,4 +1,4 @@
-import { opcoes } from "./modelos";
+import { modulos } from "../data/modulos";
 
 export default function Menu({ onSelecionar }) {
   return (
@@ -43,13 +43,13 @@ export default function Menu({ onSelecionar }) {
             </p>
 
             <span className="text-xs tracking-widest text-slate-500">
-              0{opcoes.length} EXPERIÊNCIAS
+              0{modulos.length} EXPERIÊNCIAS
             </span>
           </div>
         </section>
 
         <section className="grid gap-4 pb-20 md:grid-cols-3">
-          {opcoes.map((opcao) => (
+          {modulos.map((opcao) => (
             <button
               key={opcao.id}
               type="button"
