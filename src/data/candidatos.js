@@ -8,7 +8,7 @@ export const candidatos = [
     id: "hemacia",
     nome: "Hemácia",
     numero: "13",
-    partido: "Partido dos Transportes (PT)",
+    partido: "Partido dos Transportadores (PT)",
     slogan: "Oxigênio para todos, em cada canto do país!",
     foto: hemaciaImage,
     perfil:
@@ -38,7 +38,7 @@ export const candidatos = [
     id: "plaqueta",
     nome: "Plaqueta",
     numero: "14",
-    partido: "Partido da Nova Reparação (NOVA)",
+    partido: "Missão da Nova Reparação (MISSÃo)",
     slogan: "Abriu um rombo? A gente fecha!",
     foto: plaquetaImage,
     perfil:
