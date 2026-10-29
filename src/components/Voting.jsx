@@ -31,17 +31,23 @@ export function FotoCandidato({ candidato, className = "" }) {
 }
 
 export default function Voting({ onVoltar }) {
+  const [candidatoSelecionado, setCandidatoSelecionado] = useState(null);
+  const [urnaOpened, setUrnaOpened] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") onVoltar();
+      if (event.key !== "Escape") return;
+
+      // Os modais têm seus próprios listeners e devem fechar antes do módulo.
+      if (candidatoSelecionado || urnaOpened) return;
+
+      event.preventDefault();
+      onVoltar();
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [onVoltar]);
-
-  const [candidatoSelecionado, setCandidatoSelecionado] = useState(null);
-  const [urnaOpened, setUrnaOpened] = useState(false);
+  }, [candidatoSelecionado, onVoltar, urnaOpened]);
 
   return (
     <main className="min-h-screen bg-[#070b14] text-slate-100">

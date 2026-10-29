@@ -158,6 +158,7 @@ export default function VotingArea({ onVoltar }) {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
+        event.stopPropagation();
         onVoltar();
         return;
       }

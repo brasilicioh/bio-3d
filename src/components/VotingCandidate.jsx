@@ -4,7 +4,12 @@ import { FotoCandidato } from "./Voting";
 export default function VotingCandidate({ candidato, onClose }) {
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        onClose();
+        return;
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
