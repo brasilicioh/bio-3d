@@ -12,7 +12,7 @@ export const opcoes = [
     cor: "from-cyan-500/20",
     modelUrl: redBloodCellsModel,
     //                   camera,       ambientLight, directionalLight, intensity
-    props3d: [{ position: [0, 0, 5], fov: 45 }, 0.5, [3, 5, 5], 3],
+    props3d: [{ position: [0, 0, 5], fov: 30 }, 0.2, [3, 5, 5], 3],
   },
   {
     id: "blood-vessel",
@@ -23,7 +23,7 @@ export const opcoes = [
     categoria: "CITOLOGIA",
     cor: "from-rose-500/20",
     modelUrl: bloodVesselModel,
-    props3d: [{ position: [0, 0, 5], fov: 45 }, 10, [3, 5, 5], 5],
+    props3d: [{ position: [2, 0, 5], fov: 55 }, 8, [3, 5, 5], 5],
   },
   {
     id: "sickle-cell",
