@@ -103,7 +103,6 @@ export default function TransporteGases({ onVoltar }) {
 
               <div className="transport-scene relative mt-16 h-44 sm:mt-24">
                 <div className="artery absolute left-0 right-0 top-12 h-20 rounded-full border-4 border-rose-950/80 bg-gradient-to-b from-rose-500/30 via-red-950/90 to-rose-950/80 shadow-[0_0_35px_rgba(225,29,72,0.2)]" />
-                <div className="absolute left-0 right-0 top-[4.25rem] border-t border-dashed border-rose-300/20" />
 
                 <div className="gas-particle oxygen-particle absolute top-7 rounded-full border border-cyan-300/50 bg-cyan-300/20 px-2 py-1 text-[10px] font-semibold text-cyan-200">
                   O₂

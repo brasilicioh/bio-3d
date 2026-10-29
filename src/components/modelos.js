@@ -27,9 +27,9 @@ export const opcoes = [
   {
     id: "blood-vessel",
     numero: "03",
-    titulo: "Hemoglobina e Oxigênio",
+    titulo: "Artéria com Hemácias",
     descricao:
-      "Observe uma representação da hemácia transportando hemoglobina e oxigênio.",
+      "Observe uma representação de uma artéria transportando hemácias.",
     categoria: "CITOLOGIA",
     cor: "from-rose-500/20",
     modelUrl: bloodVesselModel,
