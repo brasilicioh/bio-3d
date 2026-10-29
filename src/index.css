@@ -43,51 +43,71 @@ a:focus-visible {
 
 @keyframes transport-cell {
   0%,
-  6% {
+  5% {
     left: 0%;
+    opacity: 0;
   }
-  44%,
-  56% {
+  8%,
+  20% {
+    left: 0%;
+    opacity: 1;
+  }
+  55%,
+  62% {
     left: calc(100% - 4rem);
+    opacity: 1;
   }
-  94%,
+  94% {
+    left: 0%;
+    opacity: 1;
+  }
+  97%,
   100% {
     left: 0%;
+    opacity: 0;
   }
 }
 
 @keyframes transport-oxygen {
   0%,
-  8% {
-    left: 3%;
+  14% {
+    left: 0%;
     opacity: 0;
   }
-  15%,
-  42% {
-    left: 15%;
+  16%,
+  20% {
+    left: 0%;
     opacity: 1;
   }
-  52%,
+  55% {
+    left: calc(100% - 4rem);
+    opacity: 1;
+  }
+  58%,
   100% {
-    left: 84%;
+    left: calc(100% - 4rem);
     opacity: 0;
   }
 }
 
 @keyframes transport-carbon {
   0%,
-  48% {
-    left: 84%;
+  58% {
+    left: calc(100% - 4rem);
     opacity: 0;
   }
-  58%,
-  78% {
-    left: 58%;
+  60%,
+  62% {
+    left: calc(100% - 4rem);
     opacity: 1;
   }
-  94%,
+  94% {
+    left: 0%;
+    opacity: 1;
+  }
+  97%,
   100% {
-    left: 4%;
+    left: 0%;
     opacity: 0;
   }
 }
@@ -96,7 +116,7 @@ a:focus-visible {
 .oxygen-particle,
 .carbon-particle {
   animation-delay: 1s;
-  animation-duration: 16s;
+  animation-duration: 17s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }

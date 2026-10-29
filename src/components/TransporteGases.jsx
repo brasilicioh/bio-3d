@@ -2,20 +2,22 @@ import { useEffect, useState } from "react";
 
 const etapas = [
   {
+    titulo: "Artéria vazia",
+    texto: "O ciclo está prestes a começar.",
+  },
+  {
     titulo: "Nos pulmões",
-    texto: "A hemácia recebe oxigênio dos alvéolos.",
+    texto: "A hemácia aparece com O₂ ligado principalmente à hemoglobina.",
   },
   {
     titulo: "Entrega do oxigênio",
-    texto: "O oxigênio acompanha a hemácia até o tecido.",
-  },
-  {
-    titulo: "No tecido",
-    texto: "O oxigênio é liberado e o dióxido de carbono é recolhido.",
+    texto:
+      "Hemácia e O₂ seguem juntos até os tecidos, onde o oxigênio é liberado.",
   },
   {
     titulo: "Retorno",
-    texto: "A hemácia volta para os pulmões e libera o CO₂ no caminho.",
+    texto:
+      "A hemácia recolhe CO₂ produzido pelos tecidos e retorna aos pulmões.",
   },
 ];
 
@@ -23,16 +25,28 @@ export default function TransporteGases({ onVoltar }) {
   const [etapaAtual, setEtapaAtual] = useState(0);
 
   useEffect(() => {
-    const inicio = window.setTimeout(() => {
-      setEtapaAtual(1);
-    }, 1000);
-    const ciclo = window.setInterval(() => {
-      setEtapaAtual((etapa) => (etapa + 1) % etapas.length);
-    }, 4000);
+    const timeouts = [];
+    let ciclo;
+
+    const agendarCiclo = () => {
+      timeouts.push(
+        window.setTimeout(() => {
+          setEtapaAtual(1);
+          timeouts.push(
+            window.setTimeout(() => setEtapaAtual(2), 2000),
+            window.setTimeout(() => setEtapaAtual(3), 8000),
+            window.setTimeout(() => setEtapaAtual(0), 15000),
+          );
+        }, 1000),
+      );
+      ciclo = window.setTimeout(agendarCiclo, 17000);
+    };
+
+    agendarCiclo();
 
     return () => {
-      window.clearTimeout(inicio);
-      window.clearInterval(ciclo);
+      timeouts.forEach((timeout) => window.clearTimeout(timeout));
+      window.clearTimeout(ciclo);
     };
   }, []);
 
@@ -73,8 +87,14 @@ export default function TransporteGases({ onVoltar }) {
             </p>
 
             <div className="relative mt-8 min-h-[360px] overflow-hidden rounded-3xl border border-white/10 bg-[#0a1120] p-5 sm:min-h-[470px] sm:p-8 lg:mt-10">
-              <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(190,24,93,0.13),transparent_58%)]" />
-              <div aria-hidden="true" className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.12)_1px,transparent_1px)] [background-size:48px_48px]" />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(190,24,93,0.13),transparent_58%)]"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.12)_1px,transparent_1px)] [background-size:48px_48px]"
+              />
 
               <div className="relative z-10 flex items-start justify-between text-[10px] tracking-[0.2em] text-slate-500">
                 <span>PULMÕES</span>
@@ -88,7 +108,7 @@ export default function TransporteGases({ onVoltar }) {
                 <div className="gas-particle oxygen-particle absolute top-7 rounded-full border border-cyan-300/50 bg-cyan-300/20 px-2 py-1 text-[10px] font-semibold text-cyan-200">
                   O₂
                 </div>
-                <div className="gas-particle carbon-particle absolute top-24 rounded-full border border-amber-300/50 bg-amber-300/20 px-2 py-1 text-[10px] font-semibold text-amber-200">
+                <div className="gas-particle carbon-particle absolute top-7 rounded-full border border-amber-300/50 bg-amber-300/20 px-2 py-1 text-[10px] font-semibold text-amber-200">
                   CO₂
                 </div>
 
@@ -112,13 +132,18 @@ export default function TransporteGases({ onVoltar }) {
             </p>
             <h2 className="mt-4 text-lg font-medium">Um ciclo contínuo.</h2>
             <p className="mt-3 text-sm leading-6 text-slate-400">
-              O₂ é entregue aos tecidos. Em seguida, a hemácia recolhe CO₂ e
-              retorna aos pulmões para reiniciar o ciclo.
+              A hemoglobina transporta a maior parte do O₂. Nos tecidos, ele é
+              liberado e o CO₂ produzido pelas células é recolhido para voltar
+              aos pulmões.
             </p>
             <div className="mt-8 rounded-xl border border-rose-300/15 bg-rose-300/5 p-4">
               <p className="text-xs text-rose-200">LEGENDA</p>
-              <p className="mt-2 text-xs leading-5 text-cyan-200">O₂ · oxigênio</p>
-              <p className="text-xs leading-5 text-amber-200">CO₂ · dióxido de carbono</p>
+              <p className="mt-2 text-xs leading-5 text-cyan-200">
+                O₂ · oxigênio
+              </p>
+              <p className="text-xs leading-5 text-amber-200">
+                CO₂ · dióxido de carbono
+              </p>
             </div>
           </aside>
         </section>
