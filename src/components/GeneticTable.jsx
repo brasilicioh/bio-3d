@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 const genotipos = ["AA", "Aa", "aa"];
 
@@ -32,6 +32,15 @@ function SeletorGenotipo({ nome, valor, onChange }) {
 }
 
 export default function GeneticTable({ onVoltar }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onVoltar();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onVoltar]);
+
   const [genotipoPai, setGenotipoPai] = useState("Aa");
   const [genotipoMae, setGenotipoMae] = useState("Aa");
 

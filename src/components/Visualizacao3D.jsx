@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import Modelo3D from "./Modelo3D";
 
 export default function Visualizacao3D({ titulo, modelObject, onVoltar }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onVoltar();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onVoltar]);
+
   return (
     <main className="min-h-screen bg-[#070b14] text-slate-100">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col px-5 sm:px-10 lg:px-14">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { candidatos } from "../data/candidatos";
 import VotingCandidate from "./VotingCandidate";
 import VotingArea from "./VotingArea";
@@ -31,6 +31,15 @@ export function FotoCandidato({ candidato, className = "" }) {
 }
 
 export default function Voting({ onVoltar }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onVoltar();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onVoltar]);
+
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null);
   const [urnaOpened, setUrnaOpened] = useState(false);
 

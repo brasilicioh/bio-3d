@@ -23,6 +23,15 @@ const etapas = [
 ];
 
 export default function TransporteGases({ onVoltar }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onVoltar();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onVoltar]);
+
   const [etapaAtual, setEtapaAtual] = useState(0);
 
   useEffect(() => {
